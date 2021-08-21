@@ -1,7 +1,12 @@
+from enum import unique
+from logging import PlaceHolder
 import pandas as pd
 import datetime
-from pandasql import sqldf
-from flask import Flask,render_template,url_for
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.express as px
+from dash.dependencies import Input, Output
 
 #Importation du Fichier de données
 Url_Trajets='trajets.xlsx'
@@ -67,38 +72,23 @@ NB_PrestationV=len(Trajets_V)
 TOP_V=TRAJETS_P.groupby('Immatriculation').size().sort_values(ascending=False).reset_index(name='Nombre Prestations')
 
 
-"""app = Flask(__name__)
-@app.route("/")
-def index():
-    return render_template('index.html')
-"""
+#external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__)
+
+
+app.layout = html.Div(children=[
+    html.Div(children=
+        html.P('Sélectionner un Chauffeur :', className='fix_label', style={'color': 'white'})
+    ),
+
+    dcc.Dropdown(   id='Select_Chauffeur',
+                    multi=False,
+                    clearable=True,
+                    placeholder='Select Countries',
+                    options=[{'label': i, 'value': i}
+                             for i in (TRAJETS_P['Chauffeur'].unique())],className='dcc_compon'
+                )
+])  
 if __name__=="__main__":
-    #app.run(debug=True)
-    print(TRAJETS_P)
-    print("Le DataFrame du Chauffeur Choisi : ")
-    print(Trajets_C)
-    print("Le DataFrame du Véhicule Choisi : ")
-    print(Trajets_V)
-    print("Le nombre de tournées du Chauffeur : ")
-    print(NB_TourneeCH)
-    print("Le nombre de Véhicules du Chauffeur : ")
-    print(NB_Vehicule)
-    print("La durée Totale des prestations du Chauffeur : ")
-    print(DUREE_TOTALECH)
-    print("La durée Moyenne des prestations du Chauffeur ")
-    print(DUREE_MOYCH)
-    print("Le nombre de prestations du Chauffeur : ")
-    print(NB_PrestationCH)
-    print("TOP 5 Chauffeurs : ")
-    print(TOP_C)
-    print("Le nombre de tournées du Véhicule : ")
-    print(NB_TourneeV)
-    print("La durée Totale des prestations du Véhicule : ")
-    print(DUREE_TOTALEV)
-    print("Le nombre de prestations du Véhicule : ")
-    print(DUREE_MOYV)
-    print("Le nombre de prestations du Véhicule : ")
-    print(NB_PrestationV)
-    print("TOP 5 Véhicules : ")
-    print(TOP_V)
+    app.run_server(debug=True)
     
