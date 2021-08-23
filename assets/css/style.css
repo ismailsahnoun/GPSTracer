@@ -5,20 +5,20 @@ body {
 
 .card_container {
     border-radius: 10px;
-    background-color: #10172e;
+    background-color: #1f2c56;
     margin: 25px;
     padding: 15px;
     position: relative;
-    box-shadow: 6px -8px 10px #3b5066 ;
+    box-shadow: 2px 2px 2px #1f2c56;
 }
 
 .create_container {
     border-radius: 10px;
-    background-color: #10172e;
+    background-color: #1f2c56;
     margin: 18px;
     padding: 15px;
     position: relative;
-    box-shadow: 2px 2px 2px #060708;
+    box-shadow: 2px 2px 2px #1f2c56;
 }
 
 .create_container1 {
@@ -79,4 +79,4 @@ body {
      flex-direction: column;
  }
 
- 
+ .DateInput { font-size: inherit; }
